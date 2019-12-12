@@ -61,7 +61,7 @@ module OmniAuth
         if !options[:skip_jwt] && !access_token['id_token'].nil?
           hash[:id_info] = ::JWT.decode(
             access_token['id_token'], nil, false, verify_iss: options.verify_iss,
-                                                  iss: 'accounts.google.com',
+                                                  iss: 'https://accounts.google.com',
                                                   verify_aud: true,
                                                   aud: options.client_id,
                                                   verify_sub: false,
@@ -79,7 +79,7 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= access_token.get('https://www.googleapis.com/plus/v1/people/me/openIdConnect').parsed
+        @raw_info ||= access_token.get('https://www.googleapis.com/oauth2/v3/userinfo').parsed
       end
 
       def raw_friend_info(id)
